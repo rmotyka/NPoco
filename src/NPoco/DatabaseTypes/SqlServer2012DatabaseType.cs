@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Linq;
 
 namespace NPoco.DatabaseTypes
@@ -13,14 +12,6 @@ namespace NPoco.DatabaseTypes
             var sqlPage = string.Format("{0}\nOFFSET @{1} ROWS FETCH NEXT @{2} ROWS ONLY", parts.sql, args.Length, args.Length + 1);
             args = args.Concat(new object[] { skip, take }).ToArray();
             return sqlPage;
-        }
-
-        public override string GetAutoIncrementExpression(TableInfo ti)
-        {
-            if (!string.IsNullOrEmpty(ti.SequenceName))
-                return string.Format("NEXT VALUE FOR {0}", ti.SequenceName);
-
-            return null;
         }
     }
 }
